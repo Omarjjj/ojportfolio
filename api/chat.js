@@ -1,5 +1,16 @@
 import OpenAI from 'openai';
-import embeddingsData from '../data/embeddings.json' assert { type: 'json' };
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+// Get current directory in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load embeddings from JSON file
+const embeddingsData = JSON.parse(
+  readFileSync(join(__dirname, '..', 'data', 'embeddings.json'), 'utf-8')
+);
 
 // Initialize OpenAI (uses OPENAI_API_KEY from environment)
 const openai = new OpenAI({
