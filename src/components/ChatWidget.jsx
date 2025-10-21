@@ -75,8 +75,12 @@ const ChatWidget = () => {
     setIsLoading(true);
 
     try {
-      // Call backend API
-      const response = await fetch('http://localhost:3001/api/chat', {
+      // Call backend API (works in both dev and production)
+      const apiUrl = import.meta.env.DEV 
+        ? 'http://localhost:3001/api/chat' 
+        : '/api/chat';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
